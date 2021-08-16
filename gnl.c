@@ -3,27 +3,30 @@
 #include <unistd.h>
 int get_next_line(char **line)
 {
-	int		i;
+	int		i = 0;
 	int		rd;
 	char	ch;
 
-	i = 0;
 	char	*buffer = malloc(100000);
 	*line = buffer;
 	while ((rd = read(0, &ch, 1)) > 0 && ch != '\n')
 		buffer[i++] = ch;
 	buffer[i] = '\0';
-	return(rd);
+	return(rd); //1 0 -1
 }
 
-	int	main(void)
+int	main(void)
 {
 	char	*line;
+	int		fd;
 
-	while(1)
+	line = NULL;
+
+	while((fd = get_next_line(&line)) > 0)
 	{
-		get_next_line(&line);
-	printf("%s\n", line);
+		printf("%s\n", line);
+		free(line);
 	}
-
+	printf("%s\n", line);
+	free(line);
 }
