@@ -6,8 +6,8 @@ int	inter(char *str, char c, int len)//строка симфол номер си
 
 	while (str[i] && (i < len || len == -1)) //пока сушествует строка и 
 		if (str[i++] == c)//если повтор 
-			return (1);//возвращать 1
-	return (0); //если повторов нет в 1 строке и 2 ой печатать символ
+			return (0);
+	return (1); //если повторов нет в 1 строке и есть повтор со 2 ой 
 }
 
 int	main(int argc, char *argv[])
@@ -19,8 +19,8 @@ int	main(int argc, char *argv[])
 		i = 0;
 		while (argv[1][i]) //пока есть 1ая строка
 		{
-			if (!inter(argv[1], argv[1][i], i) && inter(argv[2], argv[1][i], -1)) // ищу повторы && сравниваю 2 строку с 1ой
-				write(1, &argv[1][i], 1);
+			if (inter(argv[1], argv[1][i], i) && !inter(argv[2], argv[1][i], -1)) // если нет повторов в 1 строке и есть повтор со второй строкой
+				write(1, &argv[1][i], 1);//печатать общий символ
 			i++;
 		}
 	}
