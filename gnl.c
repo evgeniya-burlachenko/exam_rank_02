@@ -1,32 +1,29 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <unistd.h>
+
 int get_next_line(char **line)
 {
-	int		i = 0;
-	int		rd;
-	char	ch;
+	char rd;
+	char c;
+	int i = 0;
 
-	char	*buffer = malloc(100000);
-	*line = buffer;
-	while ((rd = read(0, &ch, 1)) > 0 && ch != '\n')
-		buffer[i++] = ch;
-	buffer[i] = '\0';
-	return(rd); //1 0 -1
+	char *buf = malloc(10000);
+	*line = buf;
+
+	while( (rd = read(0, &c, 1)) > 0 && c != '\n')
+		buf[i++] = c;
+		buf[i] = '\0';
+	return(rd);
+
 }
 
-int	main(void)
+int main(void)
 {
-	char	*line;
-	int		fd;
-
-	line = NULL;
+	char *line;
+	char fd;
 
 	while((fd = get_next_line(&line)) > 0)
-	{
 		printf("%s\n", line);
 		free(line);
-	}
-	printf("%s\n", line);
-	free(line);
 }
